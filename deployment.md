@@ -61,7 +61,8 @@ cdk deploy
 
 설치가 완료되면 아래와 같은 Output이 나옵니다. 
 
-![image](https://github.com/kyopark2014/korean-chatbot-using-amazon-bedrock/assets/52392004/766b4d33-13c9-49b1-9462-832120f73109)
+![noname](https://github.com/kyopark2014/ocr-deployment/assets/52392004/b98458e9-f1f3-4a9b-a0c7-022c1c22e524)
 
-8) WebUrl를 선택하여 브라우저로 접속합니다.
+
+8) WebUrlforkoreanocr를 선택하여 브라우저로 접속합니다.
 
