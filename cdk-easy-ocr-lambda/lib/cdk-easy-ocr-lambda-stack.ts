@@ -13,9 +13,9 @@ import * as s3Deploy from "aws-cdk-lib/aws-s3-deployment";
 const region = process.env.CDK_DEFAULT_REGION;    
 const debug = false;
 const stage = 'dev';
-const s3_prefix = 'images';
 const projectName = `korean-ocr`; 
 const bucketName = `storage-for-${projectName}-${region}`; 
+const s3_prefix = 'images';
 
 export class CdkEasyOcrLambdaStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -117,16 +117,18 @@ export class CdkEasyOcrLambdaStack extends cdk.Stack {
     });  
 
     // lambda - ocr
-    const lambdaEasyOCR = new lambda.Function(this, `lambda-for-${projectName}`, {
+    const lambdaEasyOCR = new lambda.DockerImageFunction(this, `lambda-for-${projectName}`, {
       description: 'lambda for easy ocr',
       functionName: `lambda-for-${projectName}`,
-      handler: 'lambda_function.lambda_handler',
-      runtime: lambda.Runtime.PYTHON_3_11,
-      code: lambda.Code.fromAsset(path.join(__dirname, '../../lambda-easy-ocr')),
-      timeout: cdk.Duration.seconds(60),
+      code: lambda.DockerImageCode.fromImageAsset(path.join(__dirname, '../../lambda-easy-ocr')),
+      timeout: cdk.Duration.seconds(120),
+      memorySize: 8192,
+      // role: roleLambdaWebsocket,
       environment: {
+        bucketName: bucketName,
+        s3_prefix: s3_prefix
       }
-    });
+    });     
 
     // POST method - ocr
     const resourceNameOcr = "ocr";
