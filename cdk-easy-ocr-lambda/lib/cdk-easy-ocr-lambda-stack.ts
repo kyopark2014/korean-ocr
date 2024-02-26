@@ -116,6 +116,17 @@ export class CdkEasyOcrLambdaStack extends cdk.Stack {
       },
     });  
 
+    // Lambda - ocr
+    const roleLambdaOCR = new iam.Role(this, `role-lambda-for-${projectName}`, {
+      roleName: `role-lambda-for-${projectName}-${region}`,
+      assumedBy: new iam.CompositePrincipal(
+        new iam.ServicePrincipal("lambda.amazonaws.com")
+      )
+    });
+    roleLambdaOCR.addManagedPolicy({
+      managedPolicyArn: 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole',
+    });
+
     // lambda - ocr
     const lambdaEasyOCR = new lambda.DockerImageFunction(this, `lambda-for-${projectName}`, {
       description: 'lambda for easy ocr',
@@ -123,7 +134,8 @@ export class CdkEasyOcrLambdaStack extends cdk.Stack {
       code: lambda.DockerImageCode.fromImageAsset(path.join(__dirname, '../../lambda-easy-ocr')),
       timeout: cdk.Duration.seconds(120),
       memorySize: 8192,
-      // role: roleLambdaWebsocket,
+      architecture: lambda.Architecture.ARM_64,
+      role: roleLambdaOCR,
       environment: {
         bucketName: bucketName,
         s3_prefix: s3_prefix
