@@ -37,7 +37,7 @@
                         if (xmlHttp.readyState == XMLHttpRequest.DONE && xmlHttp.status == 200 ) {
                             console.log(xmlHttp.responseText);
 
-                            alert(xmlHttp.responseText); // handle response.
+                            alert('Successfully uploaded'); // handle response.
                         }
                         else if(xmlHttp.readyState == XMLHttpRequest.DONE && xmlHttp.status != 200) {
                             console.log('status' + xmlHttp.status);
@@ -115,7 +115,7 @@
     <h4>Upload the picture to read sentances</h4>
     <div>
         <form id="myform">
-            <input type="file" accept=".gif, .jpg, .png" name="filename">
+            <input type="file" accept=".gif, .jpg, .jpeg, .png" name="filename">
             <input type="button" name="sendButton" value="Upload">
             <input type="button" name="extractButton" value="Extract">
         </form>
