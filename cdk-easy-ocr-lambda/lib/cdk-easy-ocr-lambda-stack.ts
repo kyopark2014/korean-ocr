@@ -141,6 +141,7 @@ export class CdkEasyOcrLambdaStack extends cdk.Stack {
         s3_prefix: s3_prefix
       }
     });     
+    s3Bucket.grantReadWrite(lambdaEasyOCR); // permission for s3
 
     // POST method - ocr
     const resourceNameOcr = "ocr";
