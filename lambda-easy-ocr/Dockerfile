@@ -12,7 +12,7 @@
 #CMD ["lambda_function.lambda_handler"]
 
 
-FROM public.ecr.aws/lambda/python:3.8
+FROM public.ecr.aws/lambda/python:3.11
 #RUN yum -y install gcc python3-devel zlib-devel libjpeg-devel
 RUN pip install easyocr 
 RUN pip install numpy
