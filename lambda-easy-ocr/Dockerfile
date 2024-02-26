@@ -6,7 +6,7 @@ COPY test.py /var/task/
 COPY . ..
 
 RUN /var/lang/bin/python3 -m pip install --upgrade pip
-#RUN yum -y install gcc python3-devel zlib-devel libjpeg-devel
+RUN yum -y install gcc python3-devel zlib-devel libjpeg-devel
 
 RUN pip install easyocr 
 #RUN /var/lang/bin/python3 -m pip install Pillow 
