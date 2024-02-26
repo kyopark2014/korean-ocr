@@ -65,6 +65,7 @@ def lambda_handler(event, context):
         })
 
     detected_texts_join = ' '.join([result[1] for result in results])
+    print('detected_texts_join: ', detected_texts_join)
 
     return {
         'DetectedText': detected_texts_join,
