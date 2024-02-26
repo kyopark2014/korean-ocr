@@ -124,7 +124,6 @@ export class CdkEasyOcrLambdaStack extends cdk.Stack {
       runtime: lambda.Runtime.PYTHON_3_11,
       code: lambda.Code.fromAsset(path.join(__dirname, '../../lambda-easy-ocr')),
       timeout: cdk.Duration.seconds(60),
-      logRetention: logs.RetentionDays.ONE_DAY,
       environment: {
       }
     });
@@ -170,7 +169,6 @@ export class CdkEasyOcrLambdaStack extends cdk.Stack {
       code: lambda.Code.fromAsset("../lambda-upload"), 
       handler: "index.handler", 
       timeout: cdk.Duration.seconds(10),
-      logRetention: logs.RetentionDays.ONE_DAY,
       environment: {
         bucketName: s3Bucket.bucketName,
         s3_prefix:  s3_prefix
