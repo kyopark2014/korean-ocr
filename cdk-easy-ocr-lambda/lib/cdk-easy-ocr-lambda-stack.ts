@@ -133,7 +133,7 @@ export class CdkEasyOcrLambdaStack extends cdk.Stack {
       functionName: `lambda-for-${projectName}`,
       code: lambda.DockerImageCode.fromImageAsset(path.join(__dirname, '../../lambda-easy-ocr')),
       timeout: cdk.Duration.seconds(120),
-      memorySize: 8192,
+      memorySize: 10240,
       architecture: lambda.Architecture.ARM_64,
       role: roleLambdaOCR,
       environment: {
