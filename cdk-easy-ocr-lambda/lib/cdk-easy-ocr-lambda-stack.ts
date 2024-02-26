@@ -13,7 +13,7 @@ import * as s3Deploy from "aws-cdk-lib/aws-s3-deployment";
 const region = process.env.CDK_DEFAULT_REGION;    
 const debug = false;
 const stage = 'dev';
-const s3_prefix = 'docs';
+const s3_prefix = 'images';
 const projectName = `korean-ocr`; 
 const bucketName = `storage-for-${projectName}-${region}`; 
 

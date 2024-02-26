@@ -5,16 +5,20 @@ import easyocr
 import numpy as np
 from PIL import Image
 
+bucketName = os.environ.get('bucketName') # bucket name
+s3_prefix = os.environ.get('s3_prefix')       
+s3_client = boto3.client('s3') 
+
 def lambda_handler(event, context):
     print('event: ', event)
     
-    key = event.get('Key')
-    bucket = event.get('Bucket')
-    target_languages = event.get('TargetLanguages')
+    key = s3_prefix + '/' + event.get('filename')
+    target_languages = [
+        "en",
+        "ko"
+    ]
 
-    s3_client = boto3.client('s3')
-
-    image_obj = s3_client.get_object(Bucket=bucket, Key=key)
+    image_obj = s3_client.get_object(Bucket=bucketName, Key=key)
     image_content = image_obj['Body'].read()
     image = Image.open(io.BytesIO(image_content))
     image_np = np.array(image)

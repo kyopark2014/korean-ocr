@@ -32,7 +32,7 @@
                     xmlHttp.open("PUT", uploadURL, true);       
 
                     const blob = new Blob([file], {type: contentType});
-
+                    
                     xmlHttp.onreadystatechange = function() {
                         if (xmlHttp.readyState == XMLHttpRequest.DONE && xmlHttp.status == 200 ) {
                             console.log(xmlHttp.responseText);
@@ -61,9 +61,34 @@
             xhr.send(blob); 
         }
 
+        function extractSentences(filename) {
+            const uri = "/ocr";
+            const xhr = new XMLHttpRequest();
+
+            xhr.open("POST", uri, true);
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    response = JSON.parse(xhr.responseText);
+                    console.log("response: " + JSON.stringify(response));
+                                        
+                    alert(xhr.responseText); // handle response.
+                }
+            };
+
+            let requestObj = {
+                "filename": filename
+            }
+            console.log("request: " + JSON.stringify(requestObj));
+        
+            let blob = new Blob([JSON.stringify(requestObj)], {type: 'application/json'});
+        
+            xhr.send(blob); 
+        }
+
+
         window.onload = () => {
             let form = document.forms.myform;
-            form.elements.button.onclick = function(){
+            form.elements.sendButton.onclick = function(){
                 let file = form.elements.filename.files[0];
 
                 if(file){
@@ -72,6 +97,14 @@
                     previewImg.src = URL.createObjectURL(file)
                 }else{
                     alert("Not file.");
+                }
+            };
+            form.elements.extractButton.onclick = function(){
+                let file = form.elements.filename.files[0];
+                if(file){
+                    extractSentences(file.name);
+                }else{
+                    alert("No file.");
                 }
             };
         }
@@ -83,7 +116,8 @@
     <div>
         <form id="myform">
             <input type="file" accept=".gif, .jpg, .png" name="filename">
-            <input type="button" name="button" value="Send">
+            <input type="button" name="sendButton" value="Upload">
+            <input type="button" name="extractButton" value="Extract">
         </form>
     </div>
     <img id="previewImg" width="600" alt="Preview" />
