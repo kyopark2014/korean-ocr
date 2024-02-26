@@ -7,9 +7,7 @@ COPY . ..
 RUN /var/lang/bin/python3 -m pip install --upgrade pip
 RUN yum -y install gcc python3-devel zlib-devel libjpeg-devel
 
-RUN /var/lang/bin/python3 -m pip install easyocr 
-RUN /var/lang/bin/python3 -m pip install Pillow 
-RUN /var/lang/bin/python3 -m pip install numpy 
+RUN pip install easyocr Pillow numpy
  
 CMD ["lambda_function.lambda_handler"]
 
