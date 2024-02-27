@@ -179,10 +179,10 @@
                     response = JSON.parse(xhr.responseText);
                     console.log("response: " + JSON.stringify(response));
                                 
-                    if(response.msg) {
+                    if(response.text) {
                         isResponsed.put(requestId, true);
-                        addReceivedMessage(response.msg);        
-                        
+                        console.log('result: ', JSON.stringify(response.text));
+
                         console.log('completed!');
                     }            
                     else {
