@@ -22,13 +22,12 @@ A few days later: Ariel asked Calista and Laurel to meet her by the water: 66 1 
 
 - [test 이미지](https://github.com/aws-samples/detect-text-lambda-with-easyocr/blob/main/img/test.jpeg)로 테스트 했을때의 결과는 아래와 같습니다.
 
-하나의 문장으로 추출한 결과입니다.
+[ocr_result.json](https://github.com/kyopark2014/korean-ocr/blob/main/result/ocr_test.json)와 같이 추출된 결과는 전체 텍스트와 함께 추출된 문장의 위치 정보를 포함합니다. 여기서 텍스트만 표시하면 아래와 같습니다.
 
-```java
-"DetectedText":"개봉선 자이스 렌즈 와이프 렌즈 표면의 먼지와 얼륙올 흔적 없이 부드럽게 닦아주는 일회용 티슷 안전기준 안전확인대상생활화학제품 틀 드 확인 표시사항 l 신고번호: 제 FB21-02-0531호 품목: 제거제  제품명: 자이스 렌즈 와이프 주요물질: 정제수, 2-프로판올 제조연월: 제품 하단 LOT 번호 앞 네 자리 참조 제조자 제조국: 프로스벤아이언쓰Prosben Inc) 중국 수입자, 주소, 연락처: 갈자이스비전코리아 서울시 승파구 법원로 135, 1201호(02-2252-1001)"
+```text
+"개봉선 자이스 렌즈 와이프 렌즈 표면의 먼지와 얼륙올 흔적 없이 부드럽게 닦아주는 일회용 티슷 안전기준 안전확인대상생활화학제품 틀 드 확인 표시사항 l 신고번호: 제 FB21-02-0531호 품목: 제거제  제품명: 자이스 렌즈 와이프 주요물질: 정제수, 2-프로판올 제조연월: 제품 하단 LOT 번호 앞 네 자리 참조 제조자 제조국: 프로스벤아이언쓰Prosben Inc) 중국 수입자, 주소, 연락처: 갈자이스비전코리아 서울시 승파구 법원로 135, 1201호(02-2252-1001)"
 ```
 
-전체 결과는 [ocr_result.json](https://github.com/kyopark2014/korean-ocr/blob/main/result/ocr_test.json)와 같습니다. 
 
 
 ## TrOCR
