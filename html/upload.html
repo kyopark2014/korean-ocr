@@ -66,6 +66,9 @@
             }    
         }
 
+        const feedback = document.getElementById('feedback');
+        feedback.style.display = 'none';  
+
         function sendFile(file) {
             const uri = "/upload";
             const xhr = new XMLHttpRequest();
@@ -149,6 +152,9 @@
                     }
                                         
                     alert(msg); // handle response.
+
+                    feedback.style.display = 'inline';
+                    feedback.innerHTML = `<i>${msg}</i>`; 
                 }
                 else if(xhr.readyState ===4 && xhr.status === 504) {
                     console.log("response: " + xhr.readyState + ', xhr.status: '+xhr.status);
@@ -262,6 +268,7 @@
             <input type="button" name="sendButton" value="Upload">
             <input type="button" name="extractButton" value="Extract">
         </form>
+        <div div class="istyping" id="feedback"> <i>typing a message...</i></div>  
     </div>
     <img id="preview" width="600" alt="Preview" />
 </body>
