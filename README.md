@@ -20,7 +20,7 @@
 
 ![image](https://github.com/kyopark2014/korean-ocr/assets/52392004/13c56c6b-5b89-4d0d-99f5-ac13cb7c0955)
 
-## 구현 내역
+## 구현 방법
 
 EasyOCR를 lambda에 deploy하기 위하여 아래와 같이 Dockerfile을 정의합니다. 설치가 필요한 package는 easyocr와 numpy입니다. 
 
