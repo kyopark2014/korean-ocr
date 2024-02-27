@@ -1,4 +1,4 @@
-# 오픈소스 OCR
+# 한국어 OCR
 
 ## EasyOCR
 
