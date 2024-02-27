@@ -15,9 +15,9 @@ ocrLogTableName = os.environ.get('ocrLogTableName')
 def lambda_handler(event, context):
     print('event: ', event)
     
-    requestId = event.get('requestId')    
+    requestId = event.get('request_id')    
     print('requestId: ', requestId)
-    requestTime = event.get('requestTime') 
+    requestTime = event.get('request_time') 
     print('requestTime: ', requestTime)
     key = s3_prefix + '/' + event.get('filename')
     print('key: ', key)
