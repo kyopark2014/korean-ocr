@@ -145,7 +145,7 @@
 
                     let msg = ""
                     for(i in texts) {
-                        msg += texts[i] + '\n';
+                        msg += texts[i];
                     }
                                         
                     alert(msg); // handle response.
@@ -189,8 +189,17 @@
                                 
                     if(response.text) {
                         isResponsed.put(requestId, true);
-                        console.log('result: ', JSON.stringify(response.text));
+                        console.log("response: " + JSON.stringify(response));
 
+                        const texts = JSON.parse(response['text']['S']);
+                        console.log("text: " + JSON.stringify(texts));
+
+                        let msg = ""
+                        for(i in texts) {
+                            msg += texts[i];
+                        }
+                                            
+                        alert(msg); // handle response.                        
                         console.log('completed!');
                     }            
                     else {
