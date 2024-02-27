@@ -10,7 +10,7 @@ from PIL import Image
 bucketName = os.environ.get('bucketName') # bucket name
 s3_prefix = os.environ.get('s3_prefix')       
 s3_client = boto3.client('s3') 
-callLogTableName = os.environ.get('callLogTableName')      
+ocrLogTableName = os.environ.get('ocrLogTableName')      
 
 def lambda_handler(event, context):
     print('event: ', event)
@@ -81,7 +81,7 @@ def lambda_handler(event, context):
     }
     client = boto3.client('dynamodb')
     try:
-        resp =  client.put_item(TableName=callLogTableName, Item=item)
+        resp =  client.put_item(TableName=ocrLogTableName, Item=item)
         print('resp, ', resp)
     except Exception:
         err_msg = traceback.format_exc()

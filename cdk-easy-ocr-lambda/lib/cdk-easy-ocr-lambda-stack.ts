@@ -88,17 +88,17 @@ export class CdkEasyOcrLambdaStack extends cdk.Stack {
     }); 
 
     // DynamoDB for call log
-    const callLogTableName = `db-call-log-for-${projectName}`;
-    const callLogDataTable = new dynamodb.Table(this, `db-call-log-for-${projectName}`, {
-      tableName: callLogTableName,
+    const ocrLogTableName = `db-ocr-log-for-${projectName}`;
+    const ocrLogDataTable = new dynamodb.Table(this, `db-ocr-log-for-${projectName}`, {
+      tableName: ocrLogTableName,
       partitionKey: { name: 'request_id', type: dynamodb.AttributeType.STRING },
       sortKey: { name: 'request_time', type: dynamodb.AttributeType.STRING }, 
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
-    const callLogIndexName = `index-type-for-${projectName}`;
-    callLogDataTable.addGlobalSecondaryIndex({ // GSI
-      indexName: callLogIndexName,
+    const ocrLogIndexName = `index-type-for-${projectName}`;
+    ocrLogDataTable.addGlobalSecondaryIndex({ // GSI
+      indexName: ocrLogIndexName,
       partitionKey: { name: 'request_id', type: dynamodb.AttributeType.STRING },
     });
 
@@ -154,11 +154,11 @@ export class CdkEasyOcrLambdaStack extends cdk.Stack {
       environment: {
         bucketName: bucketName,
         s3_prefix: s3_prefix,
-        callLogTableName: callLogTableName,
+        ocrLogTableName: ocrLogTableName,
       }
     });     
     s3Bucket.grantReadWrite(lambdaEasyOCR); // permission for s3
-    callLogDataTable.grantReadWriteData(lambdaEasyOCR); // permission for dynamo
+    ocrLogDataTable.grantReadWriteData(lambdaEasyOCR); // permission for dynamo
 
     // POST method - ocr
     const resourceNameOcr = "ocr";
@@ -244,11 +244,11 @@ export class CdkEasyOcrLambdaStack extends cdk.Stack {
       timeout: cdk.Duration.seconds(60),
       logRetention: logs.RetentionDays.ONE_DAY,
       environment: {
-        tableName: callLogTableName,
-        indexName: callLogIndexName
+        tableName: ocrLogTableName,
+        indexName: ocrLogIndexName
       }      
     });
-    callLogDataTable.grantReadWriteData(lambdaQueryResult); // permission for dynamo
+    ocrLogDataTable.grantReadWriteData(lambdaQueryResult); // permission for dynamo
     
     // POST method - query
     const query = api.root.addResource("query");
