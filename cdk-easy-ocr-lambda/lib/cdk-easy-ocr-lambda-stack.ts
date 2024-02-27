@@ -157,6 +157,7 @@ export class CdkEasyOcrLambdaStack extends cdk.Stack {
       }
     });     
     s3Bucket.grantReadWrite(lambdaEasyOCR); // permission for s3
+    callLogDataTable.grantReadWriteData(lambdaEasyOCR); // permission for dynamo
 
     // POST method - ocr
     const resourceNameOcr = "ocr";
