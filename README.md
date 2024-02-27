@@ -2,7 +2,10 @@
 
 ## EasyOCR
 
-[EasyOCR](https://github.com/JaidedAI/EasyOCR), [PaddleOC](https://github.com/PaddlePaddle/PaddleOCR)와 같은 Open Source OCR을 활용하여 API를 구현하고자 합니다. 여기서는 [detect-text-lambda-with-easyocr(AWS Sample)](https://github.com/aws-samples/detect-text-lambda-with-easyocr)을 참조하여, Lambda로 한국어가 지원되는 OCR 구현할 수 있습니다. [데모](https://www.jaided.ai/easyocr/)에서는 가벼운 테스트가 가능하고, [detect-text-lambda-with-easyocr(AWS Sample)](https://github.com/aws-samples/detect-text-lambda-with-easyocr)에서는 Lambda(10240MB)에서 500KB 미만의 이미지를 처리할 때, 약 1분 내외의 시간이 걸린다고 합니다.
+[EasyOCR](https://github.com/JaidedAI/EasyOCR), [PaddleOC](https://github.com/PaddlePaddle/PaddleOCR)와 같은 Open Source OCR이 있습니다. 여기서는 [detect-text-lambda-with-easyocr(AWS Sample)](https://github.com/aws-samples/detect-text-lambda-with-easyocr)을 참조하여, Lambda로 한국어가 지원되는 OCR을 구현합니다. 
+
+- [데모](https://www.jaided.ai/easyocr/): 가벼운 테스트 가능
+- [detect-text-lambda-with-easyocr(AWS Sample)](https://github.com/aws-samples/detect-text-lambda-with-easyocr): Lambda(10240MB)에서 500KB 미만의 이미지를 처리할 때, 약 1분 내외의 시간이 걸린다고 함
 
 ## 구현된 Architecture
 
