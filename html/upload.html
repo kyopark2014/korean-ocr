@@ -140,7 +140,7 @@
                     response = JSON.parse(xhr.responseText);
                     console.log("response: " + JSON.stringify(response));
 
-                    const texts = response['text']['S']
+                    const texts = JSON.parse(response['text']['S']);
                     console.log("text: " + JSON.stringify(texts));
 
                     let msg = ""
