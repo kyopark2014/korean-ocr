@@ -140,12 +140,12 @@
                     response = JSON.parse(xhr.responseText);
                     console.log("response: " + JSON.stringify(response));
 
-                    const text = response['text']
+                    const text = response['text']['S']
+                    console.log("text: " + JSON.stringify(text));
                                         
                     alert(text); // handle response.
 
-                    const text2 = response['text']['S']
-                    console.log("text2: " + JSON.stringify(text2));
+                    
                 }
                 else if(xhr.readyState ===4 && xhr.status === 504) {
                     console.log("response: " + xhr.readyState + ', xhr.status: '+xhr.status);
