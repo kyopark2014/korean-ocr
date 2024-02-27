@@ -12,8 +12,8 @@
 
 
 - 아래 이미지에 대한 결과는 아래와 같습니다.
-  
-![ocr-eng](https://github.com/kyopark2014/ocr-deployment/assets/52392004/dc6b72a4-8fd7-4bdf-bcfc-60bd17eb9875)
+
+![image](https://github.com/kyopark2014/korean-ocr/assets/52392004/5b32363b-f504-4d70-a822-c820521bd1be)
 
 ```java
 detected_texts_join:  A few days later: Ariel asked Calista and Laurel to meet her by the water: 66 1 have presents for you both" Ariel said. She handed the girls two brand-new necklaces made from star shell 'They're beautiful" Laurel breathed. "Thank Princess Ariel" Calista said. Ariel smiled When 1 was wearing the star' shell, it was like carrying part of the ocean with me. Now you two can always carry a of your adventure with you wherever you 0 pieces. you, piece 80."
