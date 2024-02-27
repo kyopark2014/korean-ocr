@@ -144,8 +144,8 @@
                     console.log("text: " + JSON.stringify(texts));
 
                     let msg = ""
-                    for(txt in texts) {
-                        msg += txt + '\n';
+                    for(i in texts) {
+                        msg += txt[i] + '\n';
                     }
                                         
                     alert(msg); // handle response.
