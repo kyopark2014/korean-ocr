@@ -18,12 +18,15 @@ def lambda_handler(event, context):
     requestId = event.get('requestId')    
     requestTime = event.get('requestTime') 
     key = s3_prefix + '/' + event.get('filename')
+    print('key: ', key)
+    
     target_languages = [
         "en",
         "ko"
     ]
 
     image_obj = s3_client.get_object(Bucket=bucketName, Key=key)
+    
     image_content = image_obj['Body'].read()
     image = Image.open(io.BytesIO(image_content))
     image_np = np.array(image)
