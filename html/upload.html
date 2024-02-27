@@ -260,6 +260,9 @@
                 let file = form.elements.filename.files[0];
                 if(file){
                     feedback.style.display = 'inline';     
+                    msg = "typing a message..."
+                    feedback.innerHTML = `<i>${msg}</i>`; 
+
                     extractSentences(file.name);                         
                 }else{
                     alert("No file.");
