@@ -92,7 +92,4 @@ def lambda_handler(event, context):
         print('error message: ', err_msg)
         raise Exception ("Not able to write into dynamodb")        
     
-    return {
-        'DetectedText': detected_texts_join,
-        'DetectedResults': positions
-    }
+    return item
