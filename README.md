@@ -10,6 +10,10 @@
 
 ## 구현된 Architecture
 
+전체적인 Architecture는 아래와 같습니다. 여기서는 서버리스 architecture를 이용하기 위하여 OCR를 수행하는 lambda는 container 방식을 이용합니다. 
+
+![image](https://github.com/kyopark2014/korean-ocr/assets/52392004/13c56c6b-5b89-4d0d-99f5-ac13cb7c0955)
+
 
 ## 실행결과
 
