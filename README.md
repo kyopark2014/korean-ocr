@@ -1,4 +1,4 @@
-# Korean OCR
+# Korean OCR
 
 ## EasyOCR을 이용한 한국어 OCR 구현하기
 
