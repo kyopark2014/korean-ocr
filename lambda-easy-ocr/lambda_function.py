@@ -16,7 +16,9 @@ def lambda_handler(event, context):
     print('event: ', event)
     
     requestId = event.get('requestId')    
+    print('requestId: ', requestId)
     requestTime = event.get('requestTime') 
+    print('requestTime: ', requestTime)
     key = s3_prefix + '/' + event.get('filename')
     print('key: ', key)
     
@@ -78,7 +80,6 @@ def lambda_handler(event, context):
     item = {    # save result
         'request_id': {'S':requestId},
         'request_time': {'S':requestTime},
-        'key': {'S':detected_texts_join},
         'text': {'S':json.dumps(detected_texts)},
         'positions': {'S':json.dumps(positions)}
     }
