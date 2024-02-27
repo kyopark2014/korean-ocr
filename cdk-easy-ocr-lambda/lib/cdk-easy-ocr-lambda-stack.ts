@@ -153,7 +153,8 @@ export class CdkEasyOcrLambdaStack extends cdk.Stack {
       role: roleLambdaOCR,
       environment: {
         bucketName: bucketName,
-        s3_prefix: s3_prefix
+        s3_prefix: s3_prefix,
+        callLogTableName: callLogTableName,
       }
     });     
     s3Bucket.grantReadWrite(lambdaEasyOCR); // permission for s3
