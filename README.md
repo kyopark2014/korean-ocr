@@ -21,7 +21,7 @@
 
 ## 구현 방법
 
-EasyOCR를 lambda에 deploy하기 위하여 아래와 같이 Dockerfile을 정의합니다. 설치가 필요한 package는 easyocr와 numpy입니다. 
+EasyOCR를 lambda에 deploy하기 위하여 아래와 같이 Dockerfile을 정의합니다. [Dockerfile](https://github.com/kyopark2014/korean-ocr/blob/main/lambda-easy-ocr/Dockerfile)와 같이 OCR에 필요한 package는 easyocr과 numpy입니다. 
 
 ```text
 FROM amazon/aws-lambda-python:3.11
@@ -37,7 +37,7 @@ RUN pip install numpy
 CMD ["lambda_function.lambda_handler"]
 ```
 
-아래와 같이 S3로 부터 이미지 정보를 읽은 후에, target 언어로 영어(en)과 한국어(ko)를 지정하고 easyocr에 분석을 요청합니다. 얻어진 결과를 parsing하여 용도에 맞게 활용합니다.
+아래와 같이 S3로 부터 이미지 정보를 읽은 후에, target 언어로 영어(en)과 한국어(ko)를 지정하고 easyocr에 분석을 요청합니다. 얻어진 결과를 parsing하여 용도에 맞게 활용합니다. 상세한 내용은 [lambda_function.py](https://github.com/kyopark2014/korean-ocr/blob/main/lambda-easy-ocr/lambda_function.py)을 참조합니다. 
 
 ```python
 image_obj = s3_client.get_object(Bucket = bucketName, Key = key)
