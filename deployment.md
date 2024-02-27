@@ -30,13 +30,13 @@ chmod a+rx resize.sh && ./resize.sh 80
 4) 소스를 다운로드합니다.
 
 ```java
-git clone https://github.com/kyopark2014/ocr-deployment
+git clone https://github.com/kyopark2014/korean-ocr
 ```
 
 5) cdk 폴더로 이동하여 필요한 라이브러리를 설치합니다.
 
 ```java
-cd ocr-deployment/cdk-easy-ocr-lambda/ && npm install
+cd korean-ocr/cdk-easy-ocr-lambda/ && npm install
 ```
 
 6) CDK 사용을 위해 Boostraping을 수행합니다.
@@ -61,7 +61,7 @@ cdk deploy
 
 설치가 완료되면 아래와 같은 Output이 나옵니다. 
 
-![noname](https://github.com/kyopark2014/ocr-deployment/assets/52392004/b98458e9-f1f3-4a9b-a0c7-022c1c22e524)
+![noname](https://github.com/kyopark2014/korean-ocr/assets/52392004/b98458e9-f1f3-4a9b-a0c7-022c1c22e524)
 
 
 8) WebUrlforkoreanocr를 선택하여 브라우저로 접속합니다.
