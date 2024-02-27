@@ -8,7 +8,10 @@
               (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
             );
         }
-        
+        function getDate(current) {    
+            return current.toISOString().slice(0,10);
+        }
+
         HashMap = function() {
             this.map = new Array();
         };
