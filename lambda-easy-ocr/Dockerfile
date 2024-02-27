@@ -5,5 +5,8 @@ COPY lambda_function.py /var/task/
 COPY . ..
 
 RUN /var/lang/bin/python3 -m pip install --upgrade pip
-RUN pip install easyocr Pillow numpy
+RUN pip install easyocr 
+#RUN pip install Pillow 
+RUN pip install numpy
+
 CMD ["lambda_function.lambda_handler"]
