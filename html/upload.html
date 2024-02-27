@@ -148,10 +148,9 @@
                         msg += texts[i];
                     }
                                         
-                    alert(msg); // handle response.
-
                     feedback.style.display = 'inline';
                     feedback.innerHTML = `<i>${msg}</i>`; 
+                    // alert(msg); // handle response.
                 }
                 else if(xhr.readyState ===4 && xhr.status === 504) {
                     console.log("response: " + xhr.readyState + ', xhr.status: '+xhr.status);
@@ -201,9 +200,10 @@
                         for(i in texts) {
                             msg += texts[i];
                         }
-                                            
-                        alert(msg); // handle response.                        
-                        console.log('completed!');
+                                                                                        
+                        feedback.style.display = 'inline';
+                        feedback.innerHTML = `<i>${msg}</i>`; 
+                        // alert(msg); // handle response.
                     }            
                     else {
                         console.log('The request is not completed yet.');
@@ -230,13 +230,18 @@
             preview.style.display = 'none';    
 
             const feedback = document.getElementById('feedback');
-            // feedback.style.display = 'none';  
+            feedback.style.display = 'none';  
             msg = "typing a message..."
             feedback.innerHTML = `<i>${msg}</i>`; 
     
             form.elements.filename.onclick = function(){
                 preview.src = ""
                 preview.style.display = 'none';  
+                feedback.style.display = 'none';
+                
+                feedback.style.display = 'none';  
+                msg = "typing a message..."
+                feedback.innerHTML = `<i>${msg}</i>`; 
             };
             form.elements.sendButton.onclick = function(){
                 let file = form.elements.filename.files[0];
@@ -245,7 +250,8 @@
                     sendFile(file);
 
                     preview.style.display = 'inline';                    
-                    preview.src = URL.createObjectURL(file)                    
+                    preview.src = URL.createObjectURL(file)     
+                    feedback.style.display = 'none';               
                 }else{
                     alert("Not file.");
                 }
@@ -253,7 +259,8 @@
             form.elements.extractButton.onclick = function(){
                 let file = form.elements.filename.files[0];
                 if(file){
-                    extractSentences(file.name);
+                    feedback.style.display = 'inline';     
+                    extractSentences(file.name);                         
                 }else{
                     alert("No file.");
                 }
@@ -268,8 +275,7 @@
         <form id="myform">
             <input type="file" accept=".gif, .jpg, .jpeg, .png" name="filename">
             <input type="button" name="sendButton" value="Upload">
-            <input type="button" name="extractButton" value="Extract">
-            
+            <input type="button" name="extractButton" value="Extract">            
         </form>        
     </div>
     <div div class="istyping" id="feedback"> <i>typing a message...</i></div> 
