@@ -1,13 +1,13 @@
 # 한국어 OCR
 
-## EasyOCR
+## EasyOCR을 이용한 한국어 OCR 구현하기
 
 [EasyOCR](https://github.com/JaidedAI/EasyOCR), [PaddleOC](https://github.com/PaddlePaddle/PaddleOCR)와 같은 Open Source OCR이 있습니다. 여기서는 [detect-text-lambda-with-easyocr(AWS Sample)](https://github.com/aws-samples/detect-text-lambda-with-easyocr)을 참조하여, Lambda로 한국어가 지원되는 OCR을 구현합니다. 
 
 - [데모](https://www.jaided.ai/easyocr/): 가벼운 테스트 가능
 - [detect-text-lambda-with-easyocr(AWS Sample)](https://github.com/aws-samples/detect-text-lambda-with-easyocr): Lambda(10240MB)에서 500KB 미만의 이미지를 처리할 때, 약 1분 내외의 시간이 걸린다고 함
 
-## 구현된 Architecture
+### 구현된 Architecture
 
 전체적인 Architecture는 아래와 같습니다. 여기서는 서버리스 architecture를 이용하기 위하여 OCR를 수행하는 lambda는 container 방식을 이용합니다. 
 
@@ -19,7 +19,7 @@
 
 ![image](https://github.com/kyopark2014/korean-ocr/assets/52392004/13c56c6b-5b89-4d0d-99f5-ac13cb7c0955)
 
-## 구현 방법
+### 구현 방법
 
 EasyOCR를 lambda에 deploy하기 위하여 아래와 같이 Dockerfile을 정의합니다. [Dockerfile](https://github.com/kyopark2014/korean-ocr/blob/main/lambda-easy-ocr/Dockerfile)와 같이 OCR에 필요한 package는 easyocr과 numpy입니다. 
 
@@ -56,6 +56,25 @@ reader = easyocr.Reader(
 )
 results = reader.readtext(image_np)
 ```
+
+### AWS CDK로 인프라 구현하기
+
+[CDK 구현 코드](./cdk-easy-ocr-lambda/README.md)에서는 Typescript로 인프라를 정의하는 방법에 대해 상세히 설명하고 있습니다.
+
+## 직접 실습 해보기
+
+### 사전 준비 사항
+
+이 솔루션을 사용하기 위해서는 사전에 아래와 같은 준비가 되어야 합니다.
+
+- [AWS Account 생성](https://repost.aws/ko/knowledge-center/create-and-activate-aws-account)
+
+
+### CDK를 이용한 인프라 설치
+
+[인프라 설치](./deployment.md)에 따라 CDK로 인프라 설치를 진행합니다. 
+
+
 
 ## 실행결과
 
