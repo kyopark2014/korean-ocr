@@ -9,6 +9,7 @@ import * as cloudFront from 'aws-cdk-lib/aws-cloudfront';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as apiGateway from 'aws-cdk-lib/aws-apigateway';
 import * as s3Deploy from "aws-cdk-lib/aws-s3-deployment";
+import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 
 const region = process.env.CDK_DEFAULT_REGION;    
 const debug = false;
@@ -85,6 +86,21 @@ export class CdkEasyOcrLambdaStack extends cdk.Stack {
       value: 'https://'+distribution.domainName+'/upload.html',      
       description: 'The web url for upload',
     }); 
+
+    // DynamoDB for call log
+    const callLogTableName = `db-call-log-for-${projectName}`;
+    const callLogDataTable = new dynamodb.Table(this, `db-call-log-for-${projectName}`, {
+      tableName: callLogTableName,
+      partitionKey: { name: 'request_id', type: dynamodb.AttributeType.STRING },
+      sortKey: { name: 'request_time', type: dynamodb.AttributeType.STRING }, 
+      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
+    });
+    const callLogIndexName = `index-type-for-${projectName}`;
+    callLogDataTable.addGlobalSecondaryIndex({ // GSI
+      indexName: callLogIndexName,
+      partitionKey: { name: 'request_id', type: dynamodb.AttributeType.STRING },
+    });
 
     // api role
     const role = new iam.Role(this, `api-role-for-${projectName}`, {
@@ -216,6 +232,48 @@ export class CdkEasyOcrLambdaStack extends cdk.Stack {
         description: 'The url of API Gateway',
       }); 
     }
+
+    // Lambda - queryResult
+    const lambdaQueryResult = new lambda.Function(this, `lambda-query-for-${projectName}`, {
+      runtime: lambda.Runtime.NODEJS_16_X, 
+      functionName: `lambda-query-for-${projectName}`,
+      code: lambda.Code.fromAsset("../lambda-query"), 
+      handler: "index.handler", 
+      timeout: cdk.Duration.seconds(60),
+      logRetention: logs.RetentionDays.ONE_DAY,
+      environment: {
+        tableName: callLogTableName,
+        indexName: callLogIndexName
+      }      
+    });
+    callLogDataTable.grantReadWriteData(lambdaQueryResult); // permission for dynamo
+    
+    // POST method - query
+    const query = api.root.addResource("query");
+    query.addMethod('POST', new apiGateway.LambdaIntegration(lambdaQueryResult, {
+      passthroughBehavior: apiGateway.PassthroughBehavior.WHEN_NO_TEMPLATES,
+      credentialsRole: role,
+      integrationResponses: [{
+        statusCode: '200',
+      }], 
+      proxy:false, 
+    }), {
+      methodResponses: [  
+        {
+          statusCode: '200',
+          responseModels: {
+            'application/json': apiGateway.Model.EMPTY_MODEL,
+          }, 
+        }
+      ]
+    }); 
+
+    // cloudfront setting for api gateway    
+    distribution.addBehavior("/query", new origins.RestApiOrigin(api), {
+      cachePolicy: cloudFront.CachePolicy.CACHING_DISABLED,
+      allowedMethods: cloudFront.AllowedMethods.ALLOW_ALL,  
+      viewerProtocolPolicy: cloudFront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+    });
 
     // cloudfront setting  
     distribution.addBehavior("/upload", new origins.RestApiOrigin(api), {

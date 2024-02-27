@@ -1,17 +1,22 @@
 import io
 import boto3
 import os
+import json
 import easyocr
 import numpy as np
+import traceback
 from PIL import Image
 
 bucketName = os.environ.get('bucketName') # bucket name
 s3_prefix = os.environ.get('s3_prefix')       
 s3_client = boto3.client('s3') 
+callLogTableName = os.environ.get('callLogTableName')      
 
 def lambda_handler(event, context):
     print('event: ', event)
     
+    requestId = event.get('requestId')    
+    requestTime = event.get('requestTime') 
     key = s3_prefix + '/' + event.get('filename')
     target_languages = [
         "en",
@@ -66,7 +71,23 @@ def lambda_handler(event, context):
 
     detected_texts_join = ' '.join([result[1] for result in results])
     print('detected_texts_join: ', detected_texts_join)
-
+    
+    item = {    # save result
+        'request_id': {'S':requestId},
+        'request_time': {'S':requestTime},
+        'key': {'S':detected_texts_join},
+        'text': {'S':json.dumps(detected_texts)},
+        'positions': {'S':json.dumps(positions)}
+    }
+    client = boto3.client('dynamodb')
+    try:
+        resp =  client.put_item(TableName=callLogTableName, Item=item)
+        print('resp, ', resp)
+    except Exception:
+        err_msg = traceback.format_exc()
+        print('error message: ', err_msg)
+        raise Exception ("Not able to write into dynamodb")        
+    
     return {
         'DetectedText': detected_texts_join,
         'DetectedResults': positions

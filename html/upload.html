@@ -3,6 +3,55 @@
   <meta charset="UTF-8">
   <title>Korean OCR</title>
     <script type="application/javascript">
+        HashMap = function() {
+            this.map = new Array();
+        };
+        
+        HashMap.prototype = {
+            put: function(key, value) {
+                this.map[key] = value;
+            },
+            get: function(key) {
+                return this.map[key];
+            },
+            getAll: function() {
+                return this.map;
+            },
+            clear: function() {
+                return this.map;
+            },
+            isEmpty: function() {
+                return (this.map.size()==0);
+            },
+            remove: function(key) {
+                delete this.map[key];
+            },
+            getKeys: function() {
+                var keys = new Array();
+                for(i in this.map) {
+                    keys.push(i);
+                }
+                return keys;
+            }
+        };
+        function delay(ms = 1000) {
+            return new Promise((resolve) => setTimeout(resolve, ms));
+        }
+        async function getResponse(requestId) {
+            await delay(5000);
+            
+            let n = retryNum.get(requestId);
+            if(n == 0) {
+                console.log('Failed!')
+                return;
+            }
+            else {
+                console.log('Retry!');
+                retryNum.put(requestId, n-1);
+                sendRequestForRetry(requestId);
+            }    
+        }
+
         function sendFile(file) {
             const uri = "/upload";
             const xhr = new XMLHttpRequest();
@@ -61,9 +110,15 @@
             xhr.send(blob); 
         }
 
+        let isResponsed = new HashMap();
+        let retryNum = new HashMap();
         function extractSentences(filename) {
             const uri = "/ocr";
             const xhr = new XMLHttpRequest();
+
+            let requestId = uuidv4();
+            isResponsed.put(requestId, false);
+            retryNum.put(requestId, 12); // max 60s (5x12)
 
             xhr.open("POST", uri, true);
             xhr.onreadystatechange = () => {
@@ -73,9 +128,24 @@
                                         
                     alert(xhr.responseText); // handle response.
                 }
+                else if(xhr.readyState ===4 && xhr.status === 504) {
+                    console.log("response: " + xhr.readyState + ', xhr.status: '+xhr.status);
+        
+                    getResponse(requestId);
+                }
+                else {
+                    console.log("response: " + xhr.readyState + ', xhr.status: '+xhr.status);
+                }
             };
 
+            let current = new Date();
+            let datastr = getDate(current);
+            let timestr = getTime(current);
+            let requestTime = datastr+' '+timestr
+            
             let requestObj = {
+                "request_id": requestId,
+                "request_time": requestTime,
                 "filename": filename
             }
             console.log("request: " + JSON.stringify(requestObj));
@@ -85,16 +155,58 @@
             xhr.send(blob); 
         }
 
+        function sendRequestForRetry(requestId) {
+            const uri = "query";
+            const xhr = new XMLHttpRequest();
+        
+            xhr.open("POST", uri, true);
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    response = JSON.parse(xhr.responseText);
+                    console.log("response: " + JSON.stringify(response));
+                                
+                    if(response.msg) {
+                        isResponsed.put(requestId, true);
+                        addReceivedMessage(response.msg);        
+                        
+                        console.log('completed!');
+                    }            
+                    else {
+                        console.log('The request is not completed yet.');
+        
+                        getResponse(requestId);
+                    }
+                }
+            };
+            
+            var requestObj = {
+                "request_id": requestId,
+            }
+            console.log("request: " + JSON.stringify(requestObj));
+        
+            var blob = new Blob([JSON.stringify(requestObj)], {type: 'application/json'});
+        
+            xhr.send(blob);            
+        }
 
         window.onload = () => {
             let form = document.forms.myform;
+
+            const preview = document.getElementById('preview');
+            preview.style.display = 'none';    
+
+            form.elements.filename.onclick = function(){
+                preview.src = ""
+                preview.style.display = 'none';  
+            };
             form.elements.sendButton.onclick = function(){
                 let file = form.elements.filename.files[0];
 
                 if(file){
                     sendFile(file);
 
-                    previewImg.src = URL.createObjectURL(file)
+                    preview.style.display = 'inline';                    
+                    preview.src = URL.createObjectURL(file)                    
                 }else{
                     alert("Not file.");
                 }
@@ -112,7 +224,7 @@
 </head>
 <body>
     <h1>Korean OCR</h1>
-    <h4>Upload the picture to read sentances</h4>
+    <h4>Upload an image to extract sentances</h4>
     <div>
         <form id="myform">
             <input type="file" accept=".gif, .jpg, .jpeg, .png" name="filename">
@@ -120,6 +232,6 @@
             <input type="button" name="extractButton" value="Extract">
         </form>
     </div>
-    <img id="previewImg" width="600" alt="Preview" />
+    <img id="preview" width="600" alt="Preview" />
 </body>
 </html>
