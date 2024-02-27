@@ -16,6 +16,7 @@
 2) 브라우저에서 파일 버튼을 선택하여 Upload 버턴을 선택하면, 파일을 Amazon S3에 저장하기 위하여 먼저 '/upload' API이용하여 Lambda (upload)로 부터 presigned url을 가져옵니다.
 3) presigned url을 이용하여 S3에 직접 파일을 업로드 합니다.
 4) 브라우저에서 Extract 버턴을 선택하면, 업로드한 파일명을 포함한 정보를 Lambda (ocr)로 전달하여 이미지로부터 텍스트를 추출합니다. 추출된 정보에는 텍스트와 문장의 위치 정보를 가지고 있으며, json 포멧으로 브라우저를 통해 조회할 수 있습니다.
+5) 추출된 텍스트는 DynamoDB에 저장합니다. 텍스트 추출 시간이 긴 경우에 브라우저에서 로드에 실패하면 새로 텍스트 추출을 요청하지 않고, DynamoDB에서 읽어온 결과를 조회합니다.
 
 ![image](https://github.com/kyopark2014/korean-ocr/assets/52392004/13c56c6b-5b89-4d0d-99f5-ac13cb7c0955)
 
