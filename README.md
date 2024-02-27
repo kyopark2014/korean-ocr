@@ -8,7 +8,10 @@
 
 - [detect-text-lambda-with-easyocr(AWS Sample)](https://github.com/aws-samples/detect-text-lambda-with-easyocr)에 따라, 10240MB Lambda에서 테스트할 경우에 500KB 미만의 이미지 처리 시, 1분 내외 소요가 된다고 합니다.
 
-### 실행결과
+## 구현된 Architecture
+
+
+## 실행결과
 
 - [ocr-eng.jpeg](https://github.com/kyopark2014/korean-ocr/blob/main/result/ocr-eng.jpeg)에 대한 결과는 아래와 같습니다.
 
