@@ -4,16 +4,15 @@
 
 [EasyOCR](https://github.com/JaidedAI/EasyOCR), [PaddleOC](https://github.com/PaddlePaddle/PaddleOCR)와 같은 Open Source OCR을 활용하여 API를 구현하고자 합니다. 여기서는 [detect-text-lambda-with-easyocr(AWS Sample)](https://github.com/aws-samples/detect-text-lambda-with-easyocr)을 참조하여, Lambda로 한국어가 지원되는 OCR를 생성하고자 합니다.
 
-- [데모](https://www.jaided.ai/easyocr/)에서는 2MB 파일도 처리할 수 없다고 나오나 실제로는 제한은 없습니다.
+- [데모](https://www.jaided.ai/easyocr/)에서는 가벼운 테스트가 가능합니다.
 
 - [detect-text-lambda-with-easyocr(AWS Sample)](https://github.com/aws-samples/detect-text-lambda-with-easyocr)에 따라, 10240MB Lambda에서 테스트할 경우에 500KB 미만의 이미지 처리 시, 1분 내외 소요가 된다고 합니다.
 
 ### 실행결과
 
+- [ocr-eng.jpeg](https://github.com/kyopark2014/korean-ocr/blob/main/result/ocr-eng.jpeg)에 대한 결과는 아래와 같습니다.
 
-- 아래 이미지에 대한 결과는 아래와 같습니다.
-
-![noname](https://github.com/kyopark2014/korean-ocr/assets/52392004/54c9c20a-5429-45d5-a429-877e07544951)
+![ocr-eng.jpeg](https://github.com/kyopark2014/korean-ocr/assets/52392004/54c9c20a-5429-45d5-a429-877e07544951)
 
 
 ```java
