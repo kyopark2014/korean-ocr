@@ -87,7 +87,7 @@ export class CdkEasyOcrLambdaStack extends cdk.Stack {
       description: 'The web url for upload',
     }); 
 
-    // DynamoDB for call log
+    // DynamoDB for ocr log
     const ocrLogTableName = `db-ocr-log-for-${projectName}`;
     const ocrLogDataTable = new dynamodb.Table(this, `db-ocr-log-for-${projectName}`, {
       tableName: ocrLogTableName,
@@ -235,6 +235,13 @@ export class CdkEasyOcrLambdaStack extends cdk.Stack {
       }); 
     }
 
+    // cloudfront setting  
+    distribution.addBehavior("/upload", new origins.RestApiOrigin(api), {
+      cachePolicy: cloudFront.CachePolicy.CACHING_DISABLED,
+      allowedMethods: cloudFront.AllowedMethods.ALLOW_ALL,  
+      viewerProtocolPolicy: cloudFront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+    });  
+
     // Lambda - queryResult
     const lambdaQueryResult = new lambda.Function(this, `lambda-query-for-${projectName}`, {
       runtime: lambda.Runtime.NODEJS_16_X, 
@@ -275,13 +282,6 @@ export class CdkEasyOcrLambdaStack extends cdk.Stack {
       cachePolicy: cloudFront.CachePolicy.CACHING_DISABLED,
       allowedMethods: cloudFront.AllowedMethods.ALLOW_ALL,  
       viewerProtocolPolicy: cloudFront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-    });
-
-    // cloudfront setting  
-    distribution.addBehavior("/upload", new origins.RestApiOrigin(api), {
-      cachePolicy: cloudFront.CachePolicy.CACHING_DISABLED,
-      allowedMethods: cloudFront.AllowedMethods.ALLOW_ALL,  
-      viewerProtocolPolicy: cloudFront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-    });    
+    });  
   }
 }
