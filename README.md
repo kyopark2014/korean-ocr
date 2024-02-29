@@ -96,6 +96,12 @@ A few days later: Ariel asked Calista and Laurel to meet her by the water: 66 1 
 "개봉선 자이스 렌즈 와이프 렌즈 표면의 먼지와 얼륙올 흔적 없이 부드럽게 닦아주는 일회용 티슷 안전기준 안전확인대상생활화학제품 틀 드 확인 표시사항 l 신고번호: 제 FB21-02-0531호 품목: 제거제  제품명: 자이스 렌즈 와이프 주요물질: 정제수, 2-프로판올 제조연월: 제품 하단 LOT 번호 앞 네 자리 참조 제조자 제조국: 프로스벤아이언쓰Prosben Inc) 중국 수입자, 주소, 연락처: 갈자이스비전코리아 서울시 승파구 법원로 135, 1201호(02-2252-1001)"
 ```
 
+### Limitation
+
+EasyOCR은 손글씨에 대해서는 특히 결과의 정확도가 떨어지는 문제점을 가지고 있으므로, 프린트된 문서에 제한적으로 사용하는것이 바람직합니다.
+
+<img width="617" alt="image" src="https://github.com/kyopark2014/korean-ocr/assets/52392004/f4537ae7-827b-4100-9ff9-25c496198252">
+
 
 
 ## TrOCR
