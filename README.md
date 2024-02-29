@@ -97,7 +97,7 @@ A few days later: Ariel asked Calista and Laurel to meet her by the water: 66 1 
 ```
 
 ### Limitation
-
+
 EasyOCR은 손글씨에 대해서는 특히 결과의 정확도가 떨어지는 문제점을 가지고 있으므로, 프린트된 문서에 제한적으로 사용하는것이 바람직합니다.
 
 <img width="617" alt="image" src="https://github.com/kyopark2014/korean-ocr/assets/52392004/f4537ae7-827b-4100-9ff9-25c496198252">
