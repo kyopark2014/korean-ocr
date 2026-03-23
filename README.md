@@ -108,3 +108,8 @@ EasyOCR은 손글씨에 대해서는 특히 결과의 정확도가 떨어지는 
 
 [TrOCR for Korean Language (PoC)](https://huggingface.co/daekeun-ml/ko-trocr-base-nsmc-news-chatbot)을 테스트 (예정)
 
+
+
+[OpenDataLoader PDF](https://discuss.pytorch.kr/t/opendataloader-pdf-ai-pdf/7838)
+
+[OpenDataLoader PDF](https://github.com/opendataloader-project/opendataloader-pdf)
