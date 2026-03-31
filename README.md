@@ -1,6 +1,28 @@
 # Korean OCR
 
-## EasyOCR을 이용한 한국어 OCR 구현하기
+## Paddle OCR 
+
+### Docker로 설치하기
+
+- CPU 버전
+```text 
+docker run --name paddleocr \
+  -v $PWD:/paddle \
+  --shm-size=8G \
+  --network=host \
+  -it ccr-2vdh3abv-pub.cnc.bj.baidubce.com/paddlepaddle/paddle:3.0.0 /bin/bash
+```
+- GPU 버전 (CUDA 11.8)
+
+```text
+docker run --gpus all --name paddleocr \
+  -v $PWD:/paddle \
+  --shm-size=8G \
+  --network=host \
+  -it ccr-2vdh3abv-pub.cnc.bj.baidubce.com/paddlepaddle/paddle:3.0.0-gpu-cuda11.8-cudnn8.9-trt8.6 /bin/bash
+```
+
+## EasyOCR
 
 [EasyOCR](https://github.com/JaidedAI/EasyOCR), [PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR)와 같은 Open Source OCR이 있습니다. 여기서는 [detect-text-lambda-with-easyocr(AWS Sample)](https://github.com/aws-samples/detect-text-lambda-with-easyocr)을 참조하여, Lambda로 한국어가 지원되는 OCR을 구현합니다. 
 
